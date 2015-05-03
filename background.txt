@@ -1,0 +1,12 @@
+1.Mutable VS Immutable
+
+Immutability means that objects of a certain type can not change in any meaningful way to outside observers
+Integer, String, etc are immutable
+Generally all value types should be
+Array objects are mutable
+It may be an array of references to immutable types, but the array itself is mutable
+Meaning you can set those references to anything you want
+Also true for array of primitives
+An immutable array will not be practical
+References to objects can be shared
+If the object is mutable, mutation will be seen through all these references
