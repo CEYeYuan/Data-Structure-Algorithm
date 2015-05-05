@@ -30,17 +30,23 @@ array dimension review:
 	0 0 0 
 	0 0 0 
 
+
+Optimize approach:
+	1.do not need copy over all the four edges, we only need one of
+	them, eg:top edge. right->top, bottom->right, left->bottom,top->left
+	2.Moreover, we can implement this algorithm in place !! not swap edge 
+	by edge, but index to index
 */
 import java.util.*;
 class matrixRotate{
 	public static void main(String[] args){
-	/*	int [][] original=new int[][]{
+		/*int [][] original=new int[][]{
 			{1,2,3,4},
 			{4,5,6,7},
 			{7,8,9,10},
 			{10,11,12,13}
-		};
-	*/
+		};*/
+	
 		/*int [][] original=new int[][]{
 			{1,2,3},
 			{4,5,6},
@@ -63,6 +69,7 @@ class matrixRotate{
 
 		System.out.println("\n");
 		rotate(original);
+		//rotateInplace(original);
 		for (int i=0;i<original.length;i++){
 			for (int j=0;j<original[1].length;j++){
 				System.out.print(original[i][j]+"  ");
@@ -112,5 +119,23 @@ class matrixRotate{
 
 		}
 		return input;
+	}
+
+
+	public static int[][] rotateInplace(int[][] input){
+		int layer=input.length/2;
+		int length=input.length;
+		for (int i=0;i<layer;i++){
+			for (int j=0;j<length-2*i-1;j++){
+				int tmp=input[i][i+j];
+				input[i][i+j]=input[j+i][length-1-i];
+				input[j+i][length-1-i]=input[length-1-i][length-1-i-j];
+				input[length-1-i][length-1-i-j]=input[length-1-i-j][i];
+				input[length-1-i-j][i]=tmp;
+			}
+		}
+
+		return input;
+
 	}
 }
