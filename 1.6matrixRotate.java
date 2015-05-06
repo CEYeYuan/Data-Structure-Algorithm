@@ -68,8 +68,8 @@ class matrixRotate{
 		}
 
 		System.out.println("\n");
-		rotate(original);
-		//rotateInplace(original);
+		//rotate(original);
+		rotateInplace(original);
 		for (int i=0;i<original.length;i++){
 			for (int j=0;j<original[1].length;j++){
 				System.out.print(original[i][j]+"  ");
@@ -126,7 +126,10 @@ class matrixRotate{
 		int layer=input.length/2;
 		int length=input.length;
 		for (int i=0;i<layer;i++){
-			for (int j=0;j<length-2*i-1;j++){
+			//both works; just make sure four corners only get rotated
+			//once
+			for (int j=1;j<length-2*i;j++){
+			//for (int j=0;j<length-2*i-1;j++){	
 				int tmp=input[i][i+j];
 				input[i][i+j]=input[j+i][length-1-i];
 				input[j+i][length-1-i]=input[length-1-i][length-1-i-j];
