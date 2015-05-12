@@ -15,6 +15,7 @@ import java.util.*;
 
 class Node{
 	int item;
+	int size;
 	Node next;
 	Node(int input){
 		item=input;
@@ -34,37 +35,34 @@ class Node{
 class SetOfStacks{
 	public static final int threshold=3;
 	static int index=0;
-	int current_index;
 	Node top;
 	ArrayList<Node> stacksList=new ArrayList<Node>();
-	HashMap<Node,Integer> stacksHash=new HashMap<Node,Integer>();
-	int current_size;
+	
 
 	void push(int input){
 		if(top==null){
-
-			current_index=0;
-			current_size=1;
+			
 			top=new Node(input);
+			top.size=1;
 			stacksList.add(top);
-			stacksHash.put(top,1);
+		
 		}
 		else{
-			if (current_size<threshold){
+			if (top.size<threshold){
 				Node newNode=new Node(input);
+				newNode.size=top.size+1;
 				newNode.next=top;
 				top=newNode;
-				current_size++;
 				stacksList.set(index,top);
 			}else{
 				Node oldTop=top;
 				top=new Node(input);
 				top.next=oldTop;
-				current_size=1;
+				top.size=1;
 				index++;
 				stacksList.add(top);
 			}
-			stacksHash.put(top,current_size);
+
 		}
 	}
 
@@ -72,15 +70,10 @@ class SetOfStacks{
 		if(top==null)
 			return null;
 		else{
+
 			Node result=top;
 			top=top.next;
-			if(current_size>=1){
-				current_size--;
-			}
-			else{
-				current_size=threshold-1;
-				index--;
-			}
+		
 			return result;		
 		}
 		
@@ -91,22 +84,41 @@ class SetOfStacks{
 			return null;
 		else{
 			Node topAt=stacksList.get(input);
-			int current_size=stacksHash.get(topAt);
+			int current_size=topAt.size;
 			if(current_size==0)
 				return null;
 			else{
 
 				Node result=topAt;
-				if (current_size==1){
-					topAt=null;
+				if(current_size!=1 && findTail(input+1)!=null){
+					topAt=topAt.next;
+					findTail(input+1).next=topAt;
+					stacksList.set(index,topAt);
 				}
-				topAt.item=topAt.next.item;
-				topAt=topAt.next;
-				stacksList.set(input,topAt);
+				if (current_size!=1 && findTail(input+1)==null){
+					top=topAt.next;
+					topAt=topAt.next;
+				}
+				if (current_size==1){
+					if(findTail(input+1)==null){
+						top=topAt.next;
+					}
+				}
 				return result;
 			}
 		}
+	}
 
+	Node findTail(int input){
+		if (stacksList.get(input)==null)
+			return null;
+		else{
+			Node current_top=stacksList.get(input);
+			while (current_top.size!=1){
+				current_top=current_top.next;
+			}
+			return current_top;
+		}
 	}
 }
 class test{
@@ -118,7 +130,7 @@ class test{
 		stacks.push(4);
 		stacks.push(5);
 		System.out.println("There're now "+stacks.index+
-			" sub stacks, and the current_size of the stack is "+stacks.current_size);
+			" sub stacks, and the current_size of the stack is "+stacks.top.size);
 		stacks.top.toStringPrint();
 		System.out.println("");
 
