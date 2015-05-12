@@ -4,39 +4,41 @@ operate in O(1) time
 
 Java Comparable interface:
   a.compareTo(b)  <0 =0 >0
+
+Traditional way: Keep track of min of ecah layer in a separte field
+
+Better way: If we pop off an elment, when will the min elment change ?
+Answer: If it's now the minimum elment and the last element of that value
+How can we find that value: ?
+Think backward, it's when we push an elment in, and coincidently it's the 
+new minimum value !
 */
 
 import java.util.*;
 class Node{
 	int item;
+	int min;
 	Node next;
 	Node (int input){
 		item=input;
 	}
 }
 class minStack{
-	HashMap
 	Node top;
-	int min;
-	int secondMin;
-	int times;
 	void push(int input){ 
 		if (top==null){
 			top=new Node(input);	
-			min=input;
-			times=1;
+			top.min=input;
 		}
 		else{
-			
-			if(input<min){
-				secondMin=min;
-				min=input;
-				times=1;
-			}	
-
-			if (input==min)
-				times++;
 			Node newTop=new Node(input);
+			
+			if(input<top.min){	
+				newTop.min=input;
+			}	
+			else{
+				newTop.min=top.min;
+			}
 			newTop.next=top;
 			top=newTop;
 		}
@@ -44,27 +46,35 @@ class minStack{
 	Object pop(){
 		if (top==null)
 			return null;
-		int result=top.item;
-		if(result==min&&times>=2)
-			times--;
-		else if(result==min && times=1)
-
-
-		top=top.next;
-		return result;
+		else{
+			Node result=top;
+			top=top.next;
+			return result;
+		}	
 	}
 	Object peek(){
-		if (top==null)
-			return null;
-		else
-			return top.item;
+		return top;
 	}
 	Object min(){
-		return min;
+		return top.min;
 	}
 
 
 	public static void main(String [] args){
+		minStack stack=new minStack();
+		stack.push(3);
+		stack.push(2);
+		stack.push(1);
+		System.out.println(stack.min());
+		System.out.println(stack.pop());
+
+		stack.push(-1);
+
+		System.out.println(stack.min());
+		System.out.println(stack.pop());
+
+		System.out.println(stack.min());
+		System.out.println(stack.pop());
 
 	}
 }
