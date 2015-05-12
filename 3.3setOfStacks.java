@@ -33,7 +33,7 @@ class Node{
 	}
 }
 class SetOfStacks{
-	public static final int threshold=3;
+	public static final int threshold=2;
 	static int index=0;
 	Node top;
 	ArrayList<Node> stacksList=new ArrayList<Node>();
@@ -93,7 +93,7 @@ class SetOfStacks{
 				if(current_size!=1 && findTail(input+1)!=null){
 					topAt=topAt.next;
 					findTail(input+1).next=topAt;
-					stacksList.set(index,topAt);
+					stacksList.set(input,topAt);
 				}
 				if (current_size!=1 && findTail(input+1)==null){
 					top=topAt.next;
@@ -102,6 +102,10 @@ class SetOfStacks{
 				if (current_size==1){
 					if(findTail(input+1)==null){
 						top=topAt.next;
+						stacksList.set(input,topAt);
+					}else{
+						findTail(input+1).next=topAt.next;
+						topAt=null;
 					}
 				}
 				return result;
@@ -134,13 +138,19 @@ class test{
 		stacks.top.toStringPrint();
 		System.out.println("");
 
-		stacks.pop();
+		stacks.popAt(1);
 		stacks.top.toStringPrint();
 		System.out.println("");
 
-		stacks.pop();
+		stacks.popAt(1);
 		stacks.top.toStringPrint();
+		System.out.println("");
 
+		stacks.popAt(0);
+		stacks.top.toStringPrint();
+		System.out.println("");
+
+		
 
 	}
 }
