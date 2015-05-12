@@ -37,7 +37,7 @@ class Node{
 	//walk it through forward and backword
 
 	public static Boolean isPalindrome(Node input){
-		
+	
 		Node reversed= reverse(input);
 		input.toStringPrint();
 		System.out.println("\n");
