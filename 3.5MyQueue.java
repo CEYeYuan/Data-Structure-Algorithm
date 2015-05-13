@@ -13,7 +13,9 @@ class Node {
 class Stack extends Node{
 	Node top;
 
-
+	public boolean isEmpty(){
+		return top==null ;
+	}
 	public void toStringPrint(){
 		 Node current=top;
 		while(true){
@@ -37,11 +39,11 @@ class Stack extends Node{
 		}	
 	}
 
-	public Node pop(){
+	public int pop(){
 		if(top==null)
-			return null;
+			return -1;
 		else{
-			Node result = top;
+			int result = top.item;
 			top=top.next;
 			return result;
 		}
@@ -56,6 +58,45 @@ class Stack extends Node{
 }
 
 class MyQueue{
-	Stack s1=new Stack();
-	Stack s2=new Stack();
+	Stack latest=new Stack();
+	Stack old=new Stack();
+	void enqueue(int input){
+		latest.push(input);
+	}
+
+	int dequeue(){
+		if (latest.top == null && old.top== null)
+			return -1;
+		else{
+			if (old.top != null){
+				int result=old.top.item;
+				old.pop();
+				return result;
+			}
+
+			else{
+				while (!latest.isEmpty()){
+					old.push(latest.pop());
+				}
+				int result=old.top.item;
+				old.pop();
+				return result;
+			}
+		}
+	}
+} 
+
+class test{
+	public static void main(String [] args){
+		MyQueue queue=new MyQueue();
+		queue.enqueue(1);
+		queue.enqueue(2);
+		queue.enqueue(3);
+		queue.enqueue(4);
+		queue.enqueue(5);
+		for (int i=0;i<=5;i++){
+			System.out.println(queue.dequeue());
+		}
+
+	} 
 }
