@@ -1,4 +1,10 @@
-/*Implement a MyQueue class which implements a queue using two stacks*/
+/*Implement a MyQueue class which implements a queue using two stacks
+When an element gets enqueued, the only operation can happen to it is dequeue;
+So when we can use an addtional stack to keep track of these already enqueued 
+elements. In other words, ther're now on the "dequeue-waitting list".  When we 
+want to dequeue these element, we first check our "dequeue-waitting list". If that
+list is empty, we can pop off the current stack to the "dequeue-waitting list". since
+the order gets reversed twice, we can now dequeue element using the normal order */
 class Node {
 	int item;
 	Node next;
