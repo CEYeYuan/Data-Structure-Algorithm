@@ -1,6 +1,15 @@
 /*Implement a function to check if a binary tree is balanced. for the purpose
 of this question, a balanced tree is defined to be a tree such that the heights
-of the two subtrees of any node never differ by more than one.*/
+of the two subtrees of any node never differ by more than one.
+The brute force recursion works, but it may check the same node over and 
+over again.
+
+We can use a more aggressive way, we implemented a method called check 
+height, if it's a balanced node, we return it's height, else we directly 
+return false
+
+
+*/
 
 class TreeNode{
 	Object data;
@@ -10,7 +19,7 @@ class TreeNode{
 		data=input;
 	}
 
-	public static boolean isBalanced(TreeNode node){
+	/*public static boolean isBalanced(TreeNode node){
 		boolean result;
 		if(node==null){
 			return true;
@@ -28,12 +37,37 @@ class TreeNode{
 	public static int Height (TreeNode node){
 		int height;
 		if (node==null){
-			return -1;
+			return 0;
 		}
 		else{
 			height=max(Height(node.leftChild),Height(node.rightChild))+1;
 		}
 		return height;
+	}*/
+
+	public static boolean isBalanced(TreeNode node){
+		if (Height(node)==-1)
+			return false;
+		else 
+			return true;
+
+	}
+
+	public static int Height(TreeNode node){
+		if (node==null){
+			return 0;
+		}
+		else if (Height(node.leftChild)==-1 || Height(node.rightChild)==-1){
+			return -1;
+		}
+		else{
+			int lh=Height(node.leftChild);
+			int rh=Height(node.rightChild);
+			if (Math.abs(lh-rh)>1)
+				return -1;
+			else
+				return max(lh,rh)+1;
+		} 
 	}
 
 	static int max(int a,int b){
