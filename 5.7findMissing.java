@@ -11,49 +11,58 @@ will take log(n)n time
 ---The best approach is we get the number  digit by digit, first get the least significant
  digtits by sum up all the lowest digits; then second least blabla until we got the 
  most significant digit. This takes n+1/2*n+1/4*n... which is linear time  */
+ import java.util.*;
  class test{
+ 	public static int result;
  	public static int findBit(int input,int digit){
- 		// if digit==1, return the least significant bit
+ 		// if digit==0, return the least significant bit
  		int mask=1;
- 		mask=mask<<(digit-1);
+ 		mask=mask<<digit;
  		return mask&input;
  	}
- 	public static int getNumDigits(int input){
- 		// return how many digits an integer owns
- 		int i=0;
- 		while (input!=0){
- 			input/=2;
- 			i++;
- 		}
- 		return i;
- 	}
-
- 	public static int findMissing(int[] input,int n){
- 		int digtits=getNumDigits(n);
- 		int result=0;
- 		int lastDigit=0;
- 		for (int i=1;i<=digtits;i++){
- 			int sum=0;
- 			for(int j=;j<input.length;j+=(1<<(i-1))){
- 				sum+=findBit(input[j],i);
- 			}
- 			if (n%(1<<i)==0 && (sum&1)==0){
- 				result+=1<<(i-1);
- 				lastDigit=1;
- 			}
- 			else if (n%(1<<i)==1 && (sum&1)==0){
- 				result+=1<<(i-1);
- 				lastDigit=1;
- 			}
- 			else
- 				lastDigit=0;
+ 	public static ArrayList<Integer> turnIntoArrList(int[] input){
+ 		ArrayList<Integer> result=new ArrayList<Integer>();
+ 		for (int i:input){
+ 			result.add(i);
  		}
  		return result;
-
  	}
+ 	public static int findMissing(ArrayList<Integer> input,int n,int column){
+ 		if ((1<<column)>n){
+ 			return result;
+ 		}
+ 		else{
+ 			ArrayList<Integer> recursion0=new ArrayList<Integer>();
+ 			ArrayList<Integer> recursion1=new ArrayList<Integer>();
+ 			for (int i:input){
+ 				if (findBit(i,column)==0)
+ 					recursion0.add(i);
+ 				else
+ 					recursion1.add(i);
+ 			}
+ 			int size0=recursion0.size();
+ 			int size1=recursion1.size();
+ 			int size=size0+size1;
+ 			if ((size%2==0) && (size1<size0)){
+ 				result+=1<<column;
+ 				findMissing(recursion1,n,column+1);
+ 			}
+ 			else if ((size%2==1) && (size0>size1)){
+ 				result+=1<<column;
+ 				findMissing(recursion1,n,column+1);
+ 			}
+ 			else{
+ 				findMissing(recursion0,n,column+1);
+ 			}
+ 			return result;
+ 		}
+ 	}
+ 		
+ 	
  	public static void main (String[] args){
- 		int[] arr=new int[]{0,1,2,4,3,5,6,7,8,10};
- 		int result=findMissing(arr,10);
+ 		int[] arr=new int[]{5,1,2,4,3,9,6,7,8,0};
+ 		ArrayList<Integer> arrList=turnIntoArrList(arr);
+ 		int result=findMissing(arrList,10,0);
  		System.out.println("The missing element in that array is "+result);
  	}
  }
