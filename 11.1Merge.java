@@ -15,6 +15,8 @@ class test{
 				index--;
 			}else{
 				while(indexA!=-1&&a[indexA]>b[i]){
+				//We need to shift over all the elements greater than b[i] until we 
+				//get to the first element of the array A. Make sure to check the array boundary
 					
 					shift(a,indexA,index-indexA);
 					indexA--;
