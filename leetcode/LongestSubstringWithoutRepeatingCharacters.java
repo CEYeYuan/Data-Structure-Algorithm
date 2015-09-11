@@ -14,6 +14,12 @@ public class Solution {
             }
             else{
                 if(lowerBound<hs.get(s.charAt(i))+1)
+                /*
+                	Why We need this line of code ? We don't want to go backwards !
+					for instance "abba" when i=3
+					lowerBound=2,hs.get(s.charAt(i))+1=1
+					we don't want start with the first b again
+				*/
                     lowerBound=hs.get(s.charAt(i))+1;
                 upperBound=i;
                 max=Math.max(upperBound-lowerBound+1,max);
