@@ -1,0 +1,35 @@
+/*
+Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties:
+
+Integers in each row are sorted from left to right.
+The first integer of each row is greater than the last integer of the previous row.
+For example,
+
+Consider the following matrix:
+
+[
+  [1,   3,  5,  7],
+  [10, 11, 16, 20],
+  [23, 30, 34, 50]
+]
+Given target = 3, return true.
+*/
+public class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        return binarySearch(matrix,target,0,matrix.length*matrix[0].length-1);
+    }
+    private boolean binarySearch(int[][]matrix,int target,int low,int high){
+        int mid=(low+high)/2;
+        int row=mid/(matrix[0].length);
+        int col=mid%(matrix[0].length);
+        if(low>=high)   {
+            if(matrix[low/(matrix[0].length)][low%(matrix[0].length)]==target)
+                return true;
+            else
+                return false;
+        }
+        if(target==matrix[row][col])    return true;
+        else if(target>matrix[row][col])    return binarySearch(matrix,target,mid+1,high);
+        else    return binarySearch(matrix,target,low,mid-1);
+    }
+}
