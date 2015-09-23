@@ -42,7 +42,7 @@ public class Solution {
             	int row,col;
             	row=(matrix.length-m)/2+i;
             	col=matrix[0].length-1-(matrix[0].length-n)/2;
-            	System.out.println("row="+row+"col="+col);
+            	//System.out.println("row="+row+"col="+col);
             	int tmp=matrix[row][col];
                 list.add(tmp);
             }
