@@ -38,3 +38,28 @@ public class Solution {
         }
     }
 }
+
+public class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if(root==null)  return true;
+        Stack<TreeNode> s1,s2;
+        s1=new Stack<TreeNode>();
+        s2=new Stack<TreeNode>();
+        s1.push(root.left);
+        s2.push(root.right);
+        while(!s1.isEmpty()){
+            TreeNode left=s1.pop();
+            TreeNode right=s2.pop();
+            if(left==null&&right==null) continue;
+            else if((left==null&&right!=null)||(left!=null&&right==null))   return false;
+            else{
+                if(left.val!=right.val)     return false;
+                s1.push(left.right);
+                s2.push(right.left);
+                s1.push(left.left);
+                s2.push(right.right);
+            }
+        }
+        return true;
+    }
+}
