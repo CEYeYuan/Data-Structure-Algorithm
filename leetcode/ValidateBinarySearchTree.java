@@ -1,4 +1,8 @@
 /*
+###
+1.min max way
+2.inorder traversal
+###
 Given a binary tree, determine if it is a valid binary search tree (BST).
 
 Assume a BST is defined as follows:
@@ -39,4 +43,32 @@ public class Solution {
         return lef&&rig;
     }
        
+}
+
+public class Solution {
+    public boolean isValidBST(TreeNode root) {
+        if(root==null)  return true;
+        return inorder(root);
+    }
+    private boolean inorder(TreeNode node){
+       Stack<TreeNode> stack=new Stack<TreeNode>();
+       Integer pre=null;
+       while(node!=null||!stack.isEmpty()){
+            while(node!=null){
+              stack.push(node);
+              node=node.left;
+             }
+           node=stack.pop();
+           System.out.println(node.val);
+           if(pre==null)
+                pre=node.val;
+            else{
+                if(node.val<=pre)
+                    return false;
+                pre=node.val;
+            }
+           node=node.right;
+       }
+       return true;
+    }
 }
