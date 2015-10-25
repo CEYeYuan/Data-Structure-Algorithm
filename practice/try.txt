@@ -1,0 +1,23 @@
+1.median of two sorted arrays
+2.Given an array of n consecutive numbers from m, not necessarily in order, there is one number that is omitted. Write the code that would return that missing number.
+3.Print out the values of a balanced binary tree starting from the lower right and moving horizontally then upwards.  
+4.Design an alarm clock.  
+5.Design a parking lot.  
+6.How to verify a binary search tree?  
+7. implementing stable array sorting algorithm. It was supposed to use O(n) time and constant space
+8.Find how many places a shifted array of ints has been shifted 
+9. Given a binary tree. Print the greatest element for each   path from root to leaves. 
+Solutions is based on using modified depth first search (DFS). In addition we need to save current maximum at each visited node.
+10.reverse a linked list
+11.How do you check if a given linked list is palindromic or not.  
+12.Given a file system, how will you find and delete a duplicate file?
+13.Parse string to int
+14.find the two numbers that are closest to each other. Return the smallest pair if there are more than one solutions. 
+15.Find the prime numbers in a given range? Find the anagram meanings of a given string from a dictionary
+16.Gave me a solution to a question and asked if its possible . Solution was is it possible to find if two strings anagrams by doing xor operation between them 
+//17.zigzag traversal
+18.Given a binary tree, where each node has a third reference which is not yet initialized, go through the tree and point the third reference to the rightmost tree node on the same level. If there are no other nodes to its right, point it to null.  
+19.Given a string and two chars, find the minimum distance between those two characters in the string. 
+20.Reverse a string in place. Not the simple string reverse() STL function, but turn the string "My dog jumps over the fence" into "Fence the over jumps dog my". 
+21. Given an array of customer ids, find out if a costumer called more than once. No data structures, other than arrays.  
+22.I had to solve a simple problem: Delete all consecutive duplicates in a string: "aaabbbcccaa" -&gt; abca.  
