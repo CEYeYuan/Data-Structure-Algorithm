@@ -52,3 +52,21 @@ public class Solution {
           
     }
 }
+
+public class Solution {
+    public void connect(TreeLinkNode root) {
+    //solve it level by level
+        TreeLinkNode level=root;
+        if(root!=null)  root.next=null;
+        while(level!=null){
+            TreeLinkNode cur=level;
+            while(cur!=null&&cur.left!=null){
+                cur.left.next=cur.right;
+                if(cur.next!=null)
+                    cur.right.next=cur.next.left;
+                cur=cur.next;
+            }
+            level=level.left;
+        }
+    }
+}
